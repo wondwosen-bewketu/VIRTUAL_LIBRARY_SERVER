@@ -27,7 +27,7 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 
-app.use("/user", userRouter);
+app.use("/user", userRouter);z
 
 // Route for handling POST requests to /post_data endpoint
 
