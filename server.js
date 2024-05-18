@@ -3,6 +3,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const userRouter = require("./routes/user.router");
+const worksRouter = require("./routes/workRouter");
+// const booksRouter = require("./routes/bookRoutes");
 
 const app = express();
 require("dotenv").config();
@@ -27,8 +29,9 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 
-app.use("/user", userRouter);z
-
+app.use("/user", userRouter);
+app.use("/api", worksRouter);
+// app.use("/api", booksRouter);
 // Route for handling POST requests to /post_data endpoint
 
 app.listen(PORT, () => {
