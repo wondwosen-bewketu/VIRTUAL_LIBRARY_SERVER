@@ -1,23 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
+// Define the book schema with the genre field
 const bookSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  author: {
-    type: String,
-    required: true
-  },
+  id: Number,
+  title: String,
+  author: String,
   description: String,
   year: Number,
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  // Add other fields as needed
+  pdf: String,
+  genre: String, // Add the genre field
 });
 
-const Book = mongoose.model('Book', bookSchema);
+// Create a model based on the schema
+const Book = mongoose.model("Book", bookSchema);
 
 module.exports = Book;

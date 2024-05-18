@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    preference:{
+      type: [String], // An array of strings to store favorite genres
+      default: [],
+    },
     age: {
       type:Number,
       required:ture
