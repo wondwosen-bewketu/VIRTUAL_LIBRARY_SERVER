@@ -1,0 +1,37 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+
+# Build files
+dist/
+build/
+out/
+
+# Dependency directories
+jspm_packages/
+
+# Sensitive or private files
+*.key
+*.pem
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Visual Studio Code
+.vscode/
+
+# npm
+*.bak
+*.backup
+*.orig
