@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "006. Flying Home",
+    "author": "Pearson",
+    "description": "The story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.",
+    "year": 1925,
+    "pdf": "./Books/006. Flying Home -Pearson.pdf"
+  },
+  {
+    "id": 2,
+    "title": "Atomic Habits Tiny Changes, Remarkable Results",
+    "author": "James Clear",
+    "description": "A novel by Harper Lee which deals with the issues of racism and injustice.",
+    "year": 1960,
+    "pdf": "./Books/Atomic_Habits_Tiny_Changes,_Remarkable_Results_James_Clear.pdf"
+  },
+  {
+    "id": 3,
+    "title": "Buster on the farm englishare",
+    "author": "Unknown",
+    "description": "A dystopian social science fiction novel and cautionary tale by George Orwell.",
+    "year": 1949,
+    "pdf": "./Books/Buster on the farm_englishare.pdf"
+  },
+  {
+    "id": 4,
+    "title": "Illustrated Guide to Python 3",
+    "author": "Matt Harrison",
+    "description": "A romantic novel of manners written by Jane Austen.",
+    "year": 1813,
+    "pdf": "./Books/Illustrated Guide to Python 3 (Matt Harrison) (Z-Library).pdf"
+  },
+  {
+    "id": 5,
+    "title": "International Human Rights Law Cases, Materials, Commentary",
+    "author": "Olivier",
+    "description": "A story of teenage angst told by protagonist Holden Caulfield.",
+    "year": 1951,
+    "pdf": "./Books/International_Human_Rights_Law_Cases,_Materials,_Commentary_by_Olivier.pdf"
+  },
+  {
+    "id": 6,
+    "title": "Java Programming",
+    "author": "Joyce Farrell",
+    "description": "A fantasy novel by J.R.R. Tolkien, which follows the quest of Bilbo Baggins to win a share of the treasure guarded by Smaug the dragon.",
+    "year": 1937,
+    "pdf": "./Books/Java Programming (Joyce Farrell).pdf"
+  },
+  {
+    "id": 7,
+    "title": "Learning to Read the Numbers  Integrating Criti",
+    "author": "Unknown",
+    "description": "The first novel in the Harry Potter series, which follows the life of a young wizard, Harry Potter.",
+    "year": 1997,
+    "pdf": "./Books/Learning to Read the Numbers  Integrating Criti.pdf"
+  },
+  {
+    "id": 8,
+    "title": "Systems Thinking and E participation  Ict in th",
+    "author": "Unknown",
+    "description": "An epic high-fantasy novel by J.R.R. Tolkien, set in the world of Middle-earth.",
+    "year": 1954,
+    "pdf": "./Books/Systems Thinking and E participation  Ict in th.pdf"
+  },
+  {
+    "id": 9,
+    "title": "The art of fearless mindset, John Ward $_@meet book storage",
+    "author": "John Ward",
+    "description": "A novel by Virginia Woolf, which follows the Ramsay family and their visits to the Isle of Skye in Scotland.",
+    "year": 1927,
+    "pdf": "./Books/The_art_of_fearless_mindset,_John_Ward_$_@meet_book_storage.pdf"
+  },
+  {
+    "id": 10,
+    "title": "We're going on a leaf hunt",
+    "author": "Unknown",
+    "description": "A novel by Herman Melville, which tells the story of the obsessive quest of Captain Ahab for revenge on a giant white sperm whale.",
+    "year": 1851,
+    "pdf": "./Books/We're going on a leaf hunt.pdf"
+  }
+]
