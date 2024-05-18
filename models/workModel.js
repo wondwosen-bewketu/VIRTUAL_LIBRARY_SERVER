@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 // Define the book schema with the genre field
 const bookSchema = new mongoose.Schema({
-  id: Number,
   title: String,
   author: String,
   description: String,

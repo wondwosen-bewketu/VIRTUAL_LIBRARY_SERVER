@@ -1,4 +1,9 @@
 const Book = require("../models/Books");
+const User = require("../models/user.model");
+const multer = require("multer");
+const path = require("path");
+
+
 
 const uploadBook = async (req, res) => {
   try {
@@ -61,7 +66,61 @@ const genres = [  "Science Fiction",  "Fantasy",  "Mystery",  "Thriller", "Roman
   "Cookbooks",
   "Art & Photography",
 ];
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'Books'); // Save files in the 'Books' folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the original file name
+  }
+});
+
+const upload = multer({ storage: storage });
+
+const uploadBooks = async (req, res) => {
+  try {
+    const { title, author, description, year, genre, type } = req.body;
+    const filePath = req.file ? req.file.path : null; // Get the file path from multer
+
+    const book = new Book({
+      title,
+      author,
+      description,
+      year,
+      genre,
+      type,
+      filePath
+    });
+
+    await book.save();
+    res.status(201).json({ message: "Book uploaded successfully", book });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error", details: err.message });
+  }
+};
 const getBooks = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    const userPreferences = user.preference;
+
+    console.log("user priference: ",userPreferences)
+    
+    // Find books that match the user's preferences
+    const books = await Book.find({ genre: { $in: userPreferences } });
+    
+    res.status(200).json(books);
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+const getAllBooks = async (req, res) => {
   try {
     const books = await Book.find();
     res.status(200).json(books);
@@ -71,6 +130,7 @@ const getBooks = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
+  console.log('updateBook')
   try {
     const { id } = req.params;
     const { title, author, description, year } = req.body;
@@ -101,4 +161,4 @@ const deleteBook = async (req, res) => {
   }
 };
 
-module.exports = { uploadBook, getBooks, updateBook, deleteBook };
+module.exports = { uploadBook, getBooks, updateBook, deleteBook,getAllBooks,uploadBooks, upload };

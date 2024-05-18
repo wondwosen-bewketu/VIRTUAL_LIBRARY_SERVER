@@ -1,9 +1,20 @@
 const mongoose = require("mongoose");
+const BookTypes = [
+  "Hardcover",
+  "Paperback",
+  "E-book",
+  "Audiobook",
+  "PDF",
+  "Magazine",
+  "Journal",
+  "Comic Book",
+];
 
 // Define the book schema with the genre field
 const bookSchema = new mongoose.Schema({
   title: String,
   author: String,
+  type:BookTypes,
   description: String,
   year: Number,
   pdf: String,
