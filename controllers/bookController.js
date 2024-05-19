@@ -250,6 +250,48 @@ const updateBook = async (req, res) => {
   }
 };
 
+const authorName= async (req, res) => {
+  const authorName = req.body.authorName;
+
+  try {
+    const books = await Book.find({ author: authorName });
+    res.json(books);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+const booktype= async (req, res) => {
+  const type = req.body.type;
+
+  try {
+    const books = await Book.find({ type: type });
+    res.json(books);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+const publishddate= async (req, res) => {
+  const year = req.body.year;
+
+  try {
+    const books = await Book.find({ year: year });
+    res.json(books);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+const samegenre= async (req, res) => {
+  const genre = req.body.genre;
+
+  try {
+    const books = await Book.find({ genre: genre });
+    res.json(books);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 const deleteBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -272,4 +314,8 @@ module.exports = {
   deleteBook,
   booksummary,
   upload,
+  authorName,
+  booktype,
+  publishddate,
+  samegenre
 };
