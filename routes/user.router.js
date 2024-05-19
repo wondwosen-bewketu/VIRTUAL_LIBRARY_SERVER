@@ -7,6 +7,10 @@ const router = express.Router();
 router.post("/postuser", userController.postUser);
 router.post("/login", userController.loginUser);
 router.delete("/delete", helper.validate, userController.deleteUser);
-router.put("/changepassword/:userId",helper.validate, userController.updatePassword);
+router.put(
+  "/changepassword/:userId",
+  helper.validate,
+  userController.updatePassword
+);
 
 module.exports = router;

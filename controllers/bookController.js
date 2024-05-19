@@ -128,12 +128,10 @@ const booksummary = async (req, res) => {
     res.status(200).json({ success: true, content: content });
   } catch (error) {
     console.error("Error uploading book:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        msg: "Error uploading book. Please try again later.",
-      });
+    res.status(500).json({
+      success: false,
+      msg: "Error uploading book. Please try again later.",
+    });
   }
 };
 // Controller function to handle book upload with a file
@@ -181,12 +179,10 @@ const uploadBooks = async (req, res) => {
     res.status(200).json({ success: true, msg: "Book uploaded successfully" });
   } catch (error) {
     console.error("Error uploading book:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        msg: "Error uploading book. Please try again later.",
-      });
+    res.status(500).json({
+      success: false,
+      msg: "Error uploading book. Please try again later.",
+    });
   }
 };
 const uploadBook = async (req, res) => {

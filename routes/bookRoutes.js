@@ -70,26 +70,22 @@ router.post(
         .json({ success: true, msg: "Book uploaded successfully" });
     } catch (error) {
       console.error("Error uploading book:", error);
-      res
-        .status(500)
-        .json({
-          success: false,
-          msg: "Error uploading book. Please try again later.",
-        });
+      res.status(500).json({
+        success: false,
+        msg: "Error uploading book. Please try again later.",
+      });
     }
   }
 );
 
 // Route to get books based on user preferences
 router.get("/:userId", bookController.getBooks);
-
-// Route to get all books
-router.get("/allBooks", bookController.getAllBooks);
-
 // Route to update a book
 router.put("/books/:id", bookController.updateBook);
 router.delete("/books/:id", bookController.deleteBook);
+
 router.get("allBooks", bookController.getAllBooks);
+
 router.post(
   "/uploadBook",
   bookController.upload.single("file"),
