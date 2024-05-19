@@ -14,9 +14,10 @@ const BookTypes = [
 const bookSchema = new mongoose.Schema({
   title: String,
   author: String,
-  type: BookTypes,
+  type: String,
   description: String,
   year: Number,
+  cuverImage:String,
   pdf: String,
   genre: String, // Add the genre field
 });
