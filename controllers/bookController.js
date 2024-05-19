@@ -30,15 +30,51 @@ const genres = [
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'Books'); // Save files in the 'Books' folder
+      cb(null, 'public');
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the original file name
+
+  filename: (req, files, cb) => {
+      cb(null, files.originalname)
   }
 });
 
+// Initialize multer with the defined storage
 const upload = multer({ storage: storage });
 
+// Controller function to handle book upload with a file
+const uploadBooks = async (req, res) => {
+  try {
+    const { title, author, description, genre, year } = req.body;
+    const coverImageFile = req.file; // Cover image file
+    const pdfFile = req.file; // PDF file
+
+    // Validate required fields (you can add more validation as needed)
+    if (!title || !author || !description || !genre || !year || !coverImageFile || !pdfFile) {
+      return res.status(400).json({ success: false, msg: "All fields are required." });
+    }
+
+    // Save cover image and PDF to the public/uploads directory
+    const coverImagePath = path.join(__dirname, "../public/", coverImageFile.filename);
+    const pdfPath = path.join(__dirname, "../public/", pdfFile.filename);
+
+    const data=await new Book({
+      title : title,
+      author : author,
+      description : description,
+      genre : genre,
+      year : year,
+      pdf:pdfPath,
+      coverImage:coverImagePath
+    })
+    await data.save();
+    // Your logic here (e.g., save book details to MongoDB)
+
+    res.status(200).json({ success: true, msg: "Book uploaded successfully" });
+  } catch (error) {
+    console.error("Error uploading book:", error);
+    res.status(500).json({ success: false, msg: "Error uploading book. Please try again later." });
+  }
+};
 const uploadBook = async (req, res) => {
   try {
     const { title, author, description, year } = req.body;
@@ -47,7 +83,6 @@ const uploadBook = async (req, res) => {
       author,
       description,
       year,
-      // Add other fields here
     });
     await book.save();
     res.status(201).json({ message: "Book uploaded successfully", book });
@@ -56,27 +91,7 @@ const uploadBook = async (req, res) => {
   }
 };
 
-const uploadBooks = async (req, res) => {
-  try {
-    const { title, author, description, year, genre, type } = req.body;
-    const filePath = req.file ? req.file.path : null; // Get the file path from multer
 
-    const book = new Book({
-      title,
-      author,
-      description,
-      year,
-      genre,
-      type,
-      filePath
-    });
-
-    await book.save();
-    res.status(201).json({ message: "Book uploaded successfully", book });
-  } catch (err) {
-    res.status(500).json({ error: "Internal Server Error", details: err.message });
-  }
-};
 
 const getBooks = async (req, res) => {
   try {
@@ -147,5 +162,5 @@ module.exports = {
   getAllBooks,
   updateBook,
   deleteBook,
-  upload
+  upload,
 };
