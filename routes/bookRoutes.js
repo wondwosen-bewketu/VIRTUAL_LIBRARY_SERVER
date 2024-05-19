@@ -24,11 +24,6 @@ const imageFileFilter = (req, files, cb) => {
 };
 const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 
-router.post("/books", bookController.uploadBook);
-
-router.post("/summary/:bookId", bookController.booksummary);
-
-// Route to upload a book with file
 router.post(
   "/uploadBook",
   upload.fields([{ name: "file" }, { name: "cuverimage" }]),
@@ -42,6 +37,8 @@ router.post(
       // Extract form data from the request
       const { title, author, description, genre, year } = req.body;
 
+      console.log(req.body);
+
       // Get the paths of the uploaded files
       const pdfPath = path.join(req.files["file"][0].path); // Use "path" property
       const coverImagePath = path.join(req.files["cuverimage"][0].path);
@@ -52,7 +49,7 @@ router.post(
 
       // Create a new Book document with form data and file URLs
       const newBook = new Book({
-        title: title,
+        title: title, // Ensure that this field is correctly populated
         author: author,
         description: description,
         genre: genre,
@@ -60,6 +57,7 @@ router.post(
         pdf: pdfURL.secure_url,
         cuverImage: coverImageURL.secure_url,
       });
+
       console.log(pdfURL);
 
       // Save the book to MongoDB
@@ -78,13 +76,19 @@ router.post(
   }
 );
 
+router.get("/allBooks", bookController.getAllBooks);
+
+router.post("/books", bookController.uploadBook);
+
+router.post("/summary/:bookId", bookController.booksummary);
+
+// Route to upload a book with file
+
 // Route to get books based on user preferences
 router.get("/:userId", bookController.getBooks);
 // Route to update a book
 router.put("/books/:id", bookController.updateBook);
 router.delete("/books/:id", bookController.deleteBook);
-
-router.get("allBooks", bookController.getAllBooks);
 
 router.post(
   "/uploadBook",
