@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const bookController = require('../controllers/bookController');
 const multer = require('multer');
@@ -25,7 +25,6 @@ const imageFileFilter = (req, files, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: imageFileFilter});
 
-// Route to upload a book without file
 router.post('/books', bookController.uploadBook);
 
 // Route to upload a book with file
@@ -74,11 +73,11 @@ router.get('/:userId', bookController.getBooks);
 // Route to get all books
 router.get('/allBooks', bookController.getAllBooks);
 
-
 // Route to update a book
 router.put('/books/:id', bookController.updateBook);
-
-// Route to delete a book
 router.delete('/books/:id', bookController.deleteBook);
+router.get("allBooks", bookController.getAllBooks)
+router.post("/uploadBook", bookController.upload.single('file'), bookController.uploadBooks);
+
 
 module.exports = router;

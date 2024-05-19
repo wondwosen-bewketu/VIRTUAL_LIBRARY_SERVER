@@ -15,26 +15,68 @@ const BookTypes = [
 ];
 
 const genres = [
-  "Science Fiction", "Fantasy", "Mystery", "Thriller", "Romance", "Historical Fiction", 
-  "Literary Fiction", "Horror", "Adventure", "Dystopian", "Magical Realism", 
-  "Contemporary Fiction", "Biography", "Autobiography", "Memoir", "Self-Help", 
-  "Health & Wellness", "History", "True Crime", "Travel", "Science", "Technology", 
-  "Business & Economics", "Philosophy", "Politics", "Religion & Spirituality", 
-  "Picture Books", "Middle Grade", "Young Adult Fantasy", "Young Adult Science Fiction", 
-  "Young Adult Romance", "Young Adult Mystery", "Nursery", "Grade 1", "Grade 2", 
-  "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", 
-  "Grade 10", "Grade 11", "Grade 12", "University Student", "GC Student at University", 
-  "Poetry", "Graphic Novels & Comics", "Short Stories", "Essays", "Drama", "Cookbooks", 
-  "Art & Photography"
+  "Science Fiction",
+  "Fantasy",
+  "Mystery",
+  "Thriller",
+  "Romance",
+  "Historical Fiction",
+  "Literary Fiction",
+  "Horror",
+  "Adventure",
+  "Dystopian",
+  "Magical Realism",
+  "Contemporary Fiction",
+  "Biography",
+  "Autobiography",
+  "Memoir",
+  "Self-Help",
+  "Health & Wellness",
+  "History",
+  "True Crime",
+  "Travel",
+  "Science",
+  "Technology",
+  "Business & Economics",
+  "Philosophy",
+  "Politics",
+  "Religion & Spirituality",
+  "Picture Books",
+  "Middle Grade",
+  "Young Adult Fantasy",
+  "Young Adult Science Fiction",
+  "Young Adult Romance",
+  "Young Adult Mystery",
+  "Nursery",
+  "Grade 1",
+  "Grade 2",
+  "Grade 3",
+  "Grade 4",
+  "Grade 5",
+  "Grade 6",
+  "Grade 7",
+  "Grade 8",
+  "Grade 9",
+  "Grade 10",
+  "Grade 11",
+  "Grade 12",
+  "University Student",
+  "GC Student at University",
+  "Poetry",
+  "Graphic Novels & Comics",
+  "Short Stories",
+  "Essays",
+  "Drama",
+  "Cookbooks",
+  "Art & Photography",
 ];
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, 'public');
   },
-
-  filename: (req, files, cb) => {
-      cb(null, files.originalname)
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the original file name
   }
 });
 
@@ -124,7 +166,7 @@ const getAllBooks = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
-  console.log('updateBook');
+  console.log("updateBook");
   try {
     const { id } = req.params;
     const { title, author, description, year } = req.body;
