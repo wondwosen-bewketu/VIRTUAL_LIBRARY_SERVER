@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const userRouter = require("./routes/user.router");
 const bookRouter = require("./routes/bookRoutes");
+const workRouter = require("./routes/workRouter");
 
 const app = express();
 require("dotenv").config();
@@ -30,6 +31,8 @@ app.use(bodyParser.json({ limit: "50mb" }));
 
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
+app.use("/api", workRouter);
+
 // Route for handling POST requests to /post_data endpoint
 
 app.listen(PORT, () => {

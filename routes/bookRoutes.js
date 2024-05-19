@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bookController = require("../controllers/bookController");
+const bookController = require('../controllers/bookController');
 
 router.post('/books', bookController.uploadBook);
 router.get('/:userId', bookController.getBooks);

@@ -14,7 +14,7 @@ const BookTypes = [
 const bookSchema = new mongoose.Schema({
   title: String,
   author: String,
-  type:BookTypes,
+  type: BookTypes,
   description: String,
   year: Number,
   pdf: String,

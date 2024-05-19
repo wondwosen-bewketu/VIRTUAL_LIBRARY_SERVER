@@ -3,17 +3,22 @@ const User = require("../models/user.model");
 const multer = require("multer");
 const path = require("path");
 
-const BookTypes = [
-  "Hardcover",
-  "Paperback",
-  "E-book",
-  "Audiobook",
-  "PDF",
-  "Magazine",
-  "Journal",
-  "Comic Book",
-];
-
+const uploadBook = async (req, res) => {
+  try {
+    const { title, author, description, year } = req.body;
+    const book = new Book({
+      title,
+      author,
+      description,
+      year,
+      // Add other fields here
+    });
+    await book.save();
+    res.status(201).json({ message: "Book uploaded successfully", book });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 const genres = [
   "Science Fiction",
   "Fantasy",
@@ -82,23 +87,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const uploadBook = async (req, res) => {
-  try {
-    const { title, author, description, year } = req.body;
-    const book = new Book({
-      title,
-      author,
-      description,
-      year,
-      // Add other fields here
-    });
-    await book.save();
-    res.status(201).json({ message: "Book uploaded successfully", book });
-  } catch (err) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
 const uploadBooks = async (req, res) => {
   try {
     const { title, author, description, year, genre, type } = req.body;
@@ -122,7 +110,6 @@ const uploadBooks = async (req, res) => {
       .json({ error: "Internal Server Error", details: err.message });
   }
 };
-
 const getBooks = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -133,7 +120,8 @@ const getBooks = async (req, res) => {
     }
 
     const userPreferences = user.preference;
-    console.log("User preferences: ", userPreferences);
+
+    console.log("user priference: ", userPreferences);
 
     // Find books that match the user's preferences
     const books = await Book.find({ genre: { $in: userPreferences } });
@@ -143,7 +131,6 @@ const getBooks = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 const getAllBooks = async (req, res) => {
   try {
     const books = await Book.find();
@@ -187,10 +174,10 @@ const deleteBook = async (req, res) => {
 
 module.exports = {
   uploadBook,
-  uploadBooks,
   getBooks,
-  getAllBooks,
   updateBook,
   deleteBook,
+  getAllBooks,
+  uploadBooks,
   upload,
 };
