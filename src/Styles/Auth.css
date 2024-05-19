@@ -1,0 +1,66 @@
+/* Auth.css */
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.Auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
+.authCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.authCard img {
+  width: 80px;
+  margin-bottom: 2rem;
+}
+
+.authCard h4 {
+  font-family: "Roboto", sans-serif;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.authCard .MuiTextField-root {
+  margin-bottom: 1.5rem;
+}
+
+.authCard .MuiButton-root {
+  background-color: #d7a022;
+  color: #000;
+  padding: 0.75rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  transition: background-color 0.3s;
+}
+
+.authCard .MuiButton-root:hover {
+  background-color: #b5841e;
+}
+
+.Toastify__toast--success {
+  background-color: #4caf50 !important;
+}
+
+.Toastify__toast--error {
+  background-color: #f44336 !important;
+}
