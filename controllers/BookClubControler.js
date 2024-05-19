@@ -27,6 +27,16 @@ exports.getAllBookClubs = async (req, res) => {
   }
 };
 
+exports.getsinglBook = async (req, res) => {
+  try {
+    const bookId=req.params.bookId
+    const bookClubs = await BookClub.findById(bookId)
+    res.json(bookClubs);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch book clubs' });
+  }
+};
+
 exports.addBookToBookClub = async (req, res) => {
     const { id } = req.params;
     const { bookId } = req.body;
