@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const userRouter = require("./routes/user.router");
 const bookRouter = require("./routes/bookRoutes");
 const path = require("path");
+const bookClubRoutes = require("./routes/BookClubRoutes")
 
 const app = express();
 require("dotenv").config();
@@ -37,6 +38,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
+app.use('/bookClub', bookClubRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);
