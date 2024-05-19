@@ -14,7 +14,10 @@ app.use(cors());
 const PORT = process.env.PORT || 4000;
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 db.on("error", (error) => {
@@ -30,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 
 // Serve the 'Books' folder as a static directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
