@@ -25,6 +25,10 @@ const imageFileFilter = (req, files, cb) => {
 const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 
 router.post("/books", bookController.uploadBook);
+router.get("/authorName",bookController.authorName)
+router.get("/type",bookController.booktype)
+router.get("/year",bookController.publishddate)
+router.get("/genre",bookController.samegenre)
 
 router.post("/summary/:bookId", bookController.booksummary);
 
