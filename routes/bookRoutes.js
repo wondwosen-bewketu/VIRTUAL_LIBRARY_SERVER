@@ -25,12 +25,13 @@ const imageFileFilter = (req, files, cb) => {
 const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 
 router.post("/books", bookController.uploadBook);
-router.get("/authorName",bookController.authorName)
-router.get("/type",bookController.booktype)
-router.get("/year",bookController.publishddate)
-router.get("/genre",bookController.samegenre)
+router.get("/allBooks", bookController.getAllBooks);
 
-router.post("/summary/:bookId", bookController.booksummary);
+router.get("/authorName", bookController.authorName);
+router.get("/type", bookController.booktype);
+router.get("/year", bookController.publishddate);
+router.get("/genre", bookController.samegenre);
+router.get("/:id", bookController.getBookById);
 
 // Route to upload a book with file
 router.post(
@@ -85,7 +86,8 @@ router.post(
   }
 );
 
-router.get("/allBooks", bookController.getAllBooks);
+// Route to get books based on user preferences
+router.get("/:userId", bookController.getBooks);
 
 router.post("/books", bookController.uploadBook);
 
@@ -93,8 +95,6 @@ router.post("/summary/:bookId", bookController.booksummary);
 
 // Route to upload a book with file
 
-// Route to get books based on user preferences
-router.get("/:userId", bookController.getBooks);
 // Route to update a book
 router.put("/books/:id", bookController.updateBook);
 router.delete("/books/:id", bookController.deleteBook);

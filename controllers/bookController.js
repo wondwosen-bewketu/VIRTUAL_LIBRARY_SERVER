@@ -250,48 +250,48 @@ const updateBook = async (req, res) => {
   }
 };
 
-const authorName= async (req, res) => {
+const authorName = async (req, res) => {
   const authorName = req.body.authorName;
 
   try {
     const books = await Book.find({ author: authorName });
     res.json(books);
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
-const booktype= async (req, res) => {
+const booktype = async (req, res) => {
   const type = req.body.type;
 
   try {
     const books = await Book.find({ type: type });
     res.json(books);
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
-const publishddate= async (req, res) => {
+const publishddate = async (req, res) => {
   const year = req.body.year;
 
   try {
     const books = await Book.find({ year: year });
     res.json(books);
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}
-const samegenre= async (req, res) => {
+};
+const samegenre = async (req, res) => {
   const genre = req.body.genre;
 
   try {
     const books = await Book.find({ genre: genre });
     res.json(books);
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 const deleteBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -301,6 +301,22 @@ const deleteBook = async (req, res) => {
     }
     res.status(200).json({ message: "Book deleted successfully" });
   } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const getBookById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await Book.findById(id);
+    if (!book) {
+      return res
+        .status(404)
+        .json({ error: "Book not found with the provided ID" });
+    }
+    res.status(200).json(book);
+  } catch (error) {
+    console.error("Error fetching book:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -317,5 +333,6 @@ module.exports = {
   authorName,
   booktype,
   publishddate,
-  samegenre
+  samegenre,
+  getBookById,
 };
