@@ -128,10 +128,12 @@ const booksummary = async (req, res) => {
     res.status(200).json({ success: true, content: content });
   } catch (error) {
     console.error("Error uploading book:", error);
-    res.status(500).json({
-      success: false,
-      msg: "Error uploading book. Please try again later.",
-    });
+    res
+      .status(500)
+      .json({
+        success: false,
+        msg: "Error uploading book. Please try again later.",
+      });
   }
 };
 // Controller function to handle book upload with a file
@@ -179,10 +181,12 @@ const uploadBooks = async (req, res) => {
     res.status(200).json({ success: true, msg: "Book uploaded successfully" });
   } catch (error) {
     console.error("Error uploading book:", error);
-    res.status(500).json({
-      success: false,
-      msg: "Error uploading book. Please try again later.",
-    });
+    res
+      .status(500)
+      .json({
+        success: false,
+        msg: "Error uploading book. Please try again later.",
+      });
   }
 };
 const uploadBook = async (req, res) => {
@@ -211,8 +215,7 @@ const getBooks = async (req, res) => {
     }
 
     const userPreferences = user.preference;
-
-    console.log("user priference: ", userPreferences);
+    console.log("User preferences: ", userPreferences);
 
     // Find books that match the user's preferences
     const books = await Book.find({ genre: { $in: userPreferences } });
@@ -222,6 +225,7 @@ const getBooks = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 const getAllBooks = async (req, res) => {
   try {
     const books = await Book.find();
@@ -267,6 +271,7 @@ module.exports = {
   uploadBook,
   uploadBooks,
   getBooks,
+  getAllBooks,
   updateBook,
   deleteBook,
   booksummary,

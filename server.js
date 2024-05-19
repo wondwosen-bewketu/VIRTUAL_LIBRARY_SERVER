@@ -1,12 +1,9 @@
-import express from "express";
-import cors from "cors";
-
-import bodyParser from "body-parser";
-import helmet from "helmet";
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const helmet = require("helmet");
 const userRouter = require("./routes/user.router");
 const bookRouter = require("./routes/bookRoutes");
-const workRouter = require("./routes/workRouter");
-
 const path = require("path");
 
 const app = express();
@@ -40,7 +37,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/user", userRouter);
 app.use("/book", bookRouter);
-app.use("/api", workRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);

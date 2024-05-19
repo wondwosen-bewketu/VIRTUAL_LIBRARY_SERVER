@@ -10,27 +10,28 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public");
   },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+
+  filename: (req, files, cb) => {
+    cb(null, files.originalname);
   },
 });
 
-const imageFileFilter = (req, file, cb) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif|pdf)$/)) {
+const imageFileFilter = (req, files, cb) => {
+  if (!files.originalname.match(/\.(jpg|jpeg|png|gif|pdf)$/)) {
     return cb(new Error("You can upload only image files or a PDF!"), false);
   }
   cb(null, true);
 };
-
 const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 
 router.post("/books", bookController.uploadBook);
+
 router.post("/summary/:bookId", bookController.booksummary);
 
 // Route to upload a book with file
 router.post(
   "/uploadBook",
-  upload.fields([{ name: "file" }, { name: "coverImage" }]),
+  upload.fields([{ name: "file" }, { name: "cuverimage" }]),
   async (req, res) => {
     try {
       cloudinary.config({
@@ -38,13 +39,12 @@ router.post(
         api_key: process.env.CLOUD_KEY,
         api_secret: process.env.CLOUD_KEY_SECRET,
       });
-
       // Extract form data from the request
       const { title, author, description, genre, year } = req.body;
 
       // Get the paths of the uploaded files
-      const pdfPath = path.join(req.files["file"][0].path);
-      const coverImagePath = path.join(req.files["coverImage"][0].path);
+      const pdfPath = path.join(req.files["file"][0].path); // Use "path" property
+      const coverImagePath = path.join(req.files["cuverimage"][0].path);
 
       // Upload files to Cloudinary
       const pdfURL = await cloudinary.uploader.upload(pdfPath);
@@ -60,6 +60,7 @@ router.post(
         pdf: pdfURL.secure_url,
         cuverImage: coverImageURL.secure_url,
       });
+      console.log(pdfURL);
 
       // Save the book to MongoDB
       await newBook.save();
@@ -82,9 +83,13 @@ router.post(
 // Route to get books based on user preferences
 router.get("/:userId", bookController.getBooks);
 
+// Route to get all books
+router.get("/allBooks", bookController.getAllBooks);
+
 // Route to update a book
 router.put("/books/:id", bookController.updateBook);
 router.delete("/books/:id", bookController.deleteBook);
+router.get("allBooks", bookController.getAllBooks);
 router.post(
   "/uploadBook",
   bookController.upload.single("file"),
