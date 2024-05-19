@@ -17,7 +17,7 @@ const bookSchema = new mongoose.Schema({
   type: String,
   description: String,
   year: Number,
-  cuverImage:String,
+  cuverImage: String,
   pdf: String,
   genre: String, // Add the genre field
 });
