@@ -22,10 +22,11 @@ const imageFileFilter = (req, files, cb) => {
     }
     cb(null, true);
 };
-
 const upload = multer({ storage: storage, fileFilter: imageFileFilter});
 
 router.post('/books', bookController.uploadBook);
+
+router.post("/summary/:bookId",bookController.booksummary)
 
 // Route to upload a book with file
 router.post('/uploadBook', upload.fields([{ name: 'file' }, { name: 'cuverimage' }]), async (req, res) => {
@@ -56,6 +57,7 @@ router.post('/uploadBook', upload.fields([{ name: 'file' }, { name: 'cuverimage'
         pdf: pdfURL.secure_url,
         cuverImage: coverImageURL.secure_url,
       });
+      console.log(pdfURL)
   
       // Save the book to MongoDB
       await newBook.save();

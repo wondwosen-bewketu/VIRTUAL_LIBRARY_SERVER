@@ -2,6 +2,7 @@ const Book = require("../models/Books");
 const User = require("../models/user.model");
 const multer = require("multer");
 const path = require("path");
+const axios = require("axios")
 
 const BookTypes = [
   "Hardcover",
@@ -82,7 +83,56 @@ const storage = multer.diskStorage({
 
 // Initialize multer with the defined storage
 const upload = multer({ storage: storage });
+const booksummary = async (req, res) => {
+  try {
+    const bookId = req.params.bookId;
+    const propt = req.body.propt
+    const book= await Book.findById(bookId)
+    const bookUrl= book.pdf
 
+    const url = "https://api.chatpdf.com/v1/sources/add-url"
+      
+    
+    const data= {
+      url: bookUrl
+    }
+
+    
+   const sourceId= await axios.post(url,data,{
+    headers: {
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMGY1ZmViZGYtNzJjYS00YTg1LTk2NDItNmQ2OWJkZmM3NTQ2IiwidHlwZSI6ImFwaV90b2tlbiJ9.JRWWJyI9w7Gr4ZZK7yhSIY9rR0l3g5zDiPJ-NJiPdms",
+      'x-api-key':'sec_4GyAWClLa0QepOEBmpNHOYkCisNIzFRA',
+    }})
+     const Id= sourceId.data.sourceId
+
+    const url2= "https://api.chatpdf.com/v1/chats/message"
+
+    const data2={
+      sourceId: Id,
+      messages: [
+        {
+          role: "user",
+          content: propt
+        }
+      ]
+    }
+    const result= await axios.post(url2,data2,{
+      headers: {
+        'x-api-key':'sec_4GyAWClLa0QepOEBmpNHOYkCisNIzFRA',
+      }
+    })
+    console.log("result:",result.data)
+
+    
+    const content= result.data.content
+
+
+    res.status(200).json({ success: true, content: content });
+  } catch (error) {
+    console.error("Error uploading book:", error);
+    res.status(500).json({ success: false, msg: "Error uploading book. Please try again later." });
+  }
+};
 // Controller function to handle book upload with a file
 const uploadBooks = async (req, res) => {
   try {
@@ -204,5 +254,6 @@ module.exports = {
   getAllBooks,
   updateBook,
   deleteBook,
+  booksummary,
   upload,
 };
